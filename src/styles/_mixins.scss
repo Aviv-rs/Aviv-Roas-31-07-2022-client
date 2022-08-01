@@ -14,11 +14,12 @@
 
 // Buttons
 
-@mixin btn($type: regular, $clr: $clr-font, $bg: $clr-btn, $hover: darken($bg, 8%)) {
+@mixin btn($type: regular, $padding: initial, $bg: $clr-btn, $clr: $clr-font, $txt-transform: initial, $hover: darken($bg, 8%)) {
   border: none;
   cursor: pointer;
-  text-transform: uppercase;
+  text-transform: $txt-transform;
   transition: background-color 0.2s;
+  padding: $padding;
 
   background-color: $bg;
   color: $clr;

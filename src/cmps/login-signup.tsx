@@ -39,18 +39,21 @@ export const LoginSignup = (props: any) => {
       {Object.keys(credentials).map((field: string) => {
         return (
           <div key={field} className="form-group">
-            <input
-              required
-              {...register(field, utilService.capitalize(field))}
-              autoComplete="no"
-            />
+            <input required {...register(field, ' ')} autoComplete="no" />
             <label htmlFor="name">{utilService.capitalize(field) + ' '}</label>
           </div>
         )
       })}
 
+      <button className="btn-submit" type="submit">
+        {isSignup ? 'Sign Up' : 'Log In'}
+      </button>
+
+      <div className="horizontal-rule"></div>
+
       <button
         type="button"
+        className="btn-toggle-login"
         onClick={() => setIsSignup(prevIsSignup => !prevIsSignup)}
       >
         {isSignup ? 'Already have an account? log in' : 'Create new account'}

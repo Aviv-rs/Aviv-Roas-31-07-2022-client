@@ -48,7 +48,7 @@
 
 // Spacing
 .layout-padding {
-  padding-top: 1rem;
+  padding-block: 1rem;
 
   @include for-small-layout {
     padding-inline: 1rem;
