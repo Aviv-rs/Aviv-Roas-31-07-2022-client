@@ -1,0 +1,61 @@
+// Flex
+.flex {
+  display: flex;
+}
+
+.flex.column {
+  flex-direction: column;
+}
+
+.flex-end {
+  justify-content: flex-end;
+}
+
+.space-between {
+  justify-content: space-between
+}
+
+.flex.align-center {
+  align-items: center;
+}
+
+.flex.justify-center {
+  justify-content: center;
+}
+
+.inline-flex {
+  display: inline-flex;
+}
+
+// List
+.clean-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+// Buttons
+.clean-btn {
+  background-color: transparent;
+  padding: 0;
+  border: none;
+}
+
+// Positions
+.relative {
+  position: relative;
+}
+
+// Spacing
+.layout-padding {
+  padding-top: 1rem;
+
+  @include for-small-layout {
+    padding-inline: 1rem;
+  }
+}
+
+// Sizing
+.full-screen {
+  min-height: 100vh;
+}

@@ -1,0 +1,30 @@
+/* Media queries Breakpoint mixins */
+
+@mixin for-mobile-layout {
+  @media (max-width: $break-sm) {
+    @content;
+  }
+}
+
+@mixin for-small-layout {
+  @media (min-width: $break-sm) {
+    @content;
+  }
+}
+
+// Buttons
+
+@mixin btn($type: regular, $clr: $clr-font, $bg: $clr-btn, $hover: darken($bg, 8%)) {
+  border: none;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.2s;
+
+  background-color: $bg;
+  color: $clr;
+
+  &:hover {
+    background-color: $hover;
+  }
+
+}
