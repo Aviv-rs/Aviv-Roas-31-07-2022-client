@@ -19,7 +19,7 @@ export const useForm = (initialFields: any, cb?: Function, isAsync = false) => {
   const handleChange = ({ target }: { target: any }) => {
     const field = target.name
     let value = target.type === 'number' ? +target.value || '' : target.value
-    if (target.type === 'file') value = URL.createObjectURL(target.files[0])
+    if (target.type === 'file') value = target.files[0]
     setFields((prevFields: any) => ({ ...prevFields, [field]: value }))
   }
 

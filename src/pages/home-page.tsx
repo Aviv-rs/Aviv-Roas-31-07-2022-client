@@ -1,10 +1,10 @@
-import { AppHeader } from 'cmps/app-header'
+import { userService } from 'services/user.service'
 
 export function HomePage() {
+  const user = userService.getLoggedinUser()
   return (
-    <main className="book-app">
-      <AppHeader />
-      <div className="main-content layout-padding full-screen flex column"></div>
-    </main>
+    <section className="home-page">
+      <pre>{JSON.stringify(user)}</pre>
+    </section>
   )
 }
