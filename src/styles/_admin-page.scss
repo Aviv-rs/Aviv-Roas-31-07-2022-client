@@ -1,0 +1,48 @@
+.admin-page {
+
+    .users-table {
+        width: 80vw;
+        text-align: center;
+        border-collapse: collapse;
+
+        thead {
+            font-size: 18px;
+            color: #fff;
+            line-height: 1.4;
+            background-color: $clr-primary;
+
+        }
+
+        .column1 {
+            padding-inline-start: 2rem;
+        }
+
+        .avatar {
+            height: calc(60px + 1rem);
+            width: calc(60px + 2rem);
+
+            img {
+                border-radius: 50%;
+            }
+        }
+
+        tbody {
+            font-weight: bold;
+
+            tr:nth-child(even) {
+                background-color: $clr-btn2;
+            }
+
+            tr:nth-child(odd) {
+                background-color: #fff;
+            }
+
+            td {
+                font-size: 15px;
+                line-height: 1.4;
+                padding-right: 10px;
+                padding-block: 1rem;
+            }
+        }
+    }
+}
