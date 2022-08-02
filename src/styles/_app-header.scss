@@ -3,16 +3,25 @@
     padding: 10px;
     box-shadow: 0 2px 2px -2px rgb(0 0 0 / 15%);
     background: $primary-gradient;
+    padding: 10px 2rem;
+    justify-content: space-between;
 
     .logo-container {
-
         height: 60px;
-        width: 60px;
+        width: 80px;
+    }
 
-        svg {
-            height: 70%;
-            width: 100%;
-            fill: $clr-font;
+    .links {
+        gap: 10px;
+
+        .link {
+            font-weight: bold;
+            font-size: 1.1rem;
+
+            .active {
+                color: $clr-link-active;
+                border-bottom: 2px solid $clr-link-active;
+            }
         }
     }
 }

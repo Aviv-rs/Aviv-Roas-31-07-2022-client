@@ -49,11 +49,13 @@ export const LoginSignup = (props: LoginSignupProps) => {
 
     if (isSignup) {
       try {
-        const avatarUrl = await uploadAndGetImgUrl(credentials.avatar)
+        const avatarUrl = !!credentials.avatar
+          ? await uploadAndGetImgUrl(credentials.avatar)
+          : defaultAvatar
         await props.onSignup({ ...credentials, avatar: avatarUrl })
         navigate('/home')
       } catch (err) {
-        setError('Cannot signup right now, please try again')
+        setError('Cannot signup, please try again with a different username')
       }
     } else {
       try {
@@ -61,18 +63,13 @@ export const LoginSignup = (props: LoginSignupProps) => {
         navigate('/home')
       } catch (err) {
         setError('Wrong username or password, please try again')
-        // setUserMsg({ txt: 'Cannot login', type: 'danger' })
       }
     }
   }
 
   return (
     <form onSubmit={ev => handleSubmit(ev)} className="login-signup">
-      {error && (
-        <div className="error">
-          Wrong username or password, please try again
-        </div>
-      )}
+      {error && <div className="error">{error}</div>}
       {Object.keys(credentials).map((field: string) => {
         return (
           <div key={field} className="form-group">
