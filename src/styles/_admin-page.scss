@@ -2,7 +2,7 @@
 
     .users-table {
         width: 80vw;
-        text-align: center;
+        text-align: left;
         border-collapse: collapse;
 
         thead {
@@ -11,6 +11,15 @@
             line-height: 1.4;
             background-color: $clr-primary;
 
+            th {
+                padding-block: 1rem;
+
+
+            }
+
+            .actions {
+                padding-inline-end: 10px;
+            }
         }
 
         .column1 {
@@ -18,7 +27,6 @@
         }
 
         .avatar {
-            height: calc(60px + 1rem);
             width: calc(60px + 2rem);
 
             img {
@@ -42,7 +50,16 @@
                 line-height: 1.4;
                 padding-right: 10px;
                 padding-block: 1rem;
+
+                .actions {
+                    gap: 8px;
+
+                    button {
+                        @include btn($padding: 8px)
+                    }
+                }
             }
+
         }
     }
 }

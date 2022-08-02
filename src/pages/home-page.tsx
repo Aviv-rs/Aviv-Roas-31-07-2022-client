@@ -21,7 +21,7 @@ export function HomePage() {
   }
   return (
     <section className="home-page">
-      <UserList users={users} />
+      <UserList users={users} loggedinUserId={user?._id} />
     </section>
   )
 }
