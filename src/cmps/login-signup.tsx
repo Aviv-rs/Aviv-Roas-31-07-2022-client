@@ -53,14 +53,14 @@ export const LoginSignup = (props: LoginSignupProps) => {
           ? await uploadAndGetImgUrl(credentials.avatar)
           : defaultAvatar
         await props.onSignup({ ...credentials, avatar: avatarUrl })
-        navigate('/home')
+        navigate('/chat')
       } catch (err) {
         setError('Cannot signup, please try again with a different username')
       }
     } else {
       try {
         await props.onLogin(credentials)
-        navigate('/home')
+        navigate('/chat')
       } catch (err) {
         setError('Wrong username or password, please try again')
       }

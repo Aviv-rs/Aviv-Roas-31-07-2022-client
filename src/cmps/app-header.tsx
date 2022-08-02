@@ -1,11 +1,22 @@
-import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
-import { routes } from 'routes'
+import { useEffect, useState } from 'react'
+import { NavLink, useNavigate } from 'react-router-dom'
+import { chatAppRoutes as routes } from 'routes'
 import { userService } from 'services/user.service'
 import Logo from '../assets/imgs/logo.png'
 
 export function AppHeader() {
   const [user, setUser] = useState(userService.getLoggedinUser())
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    setUser(userService.getLoggedinUser())
+  }, [])
+
+  const onLogout = async () => {
+    await userService.logout()
+    setUser(null)
+    navigate('/')
+  }
 
   return (
     <header className="app-header flex ">
@@ -14,14 +25,21 @@ export function AppHeader() {
       </div>
       {user && (
         <ul className="links clean-list flex align-center">
-          {routes.map(
-            route =>
-              route.title && (
-                <li key={route.title} className="link">
-                  <NavLink to={route.path}>{route.title}</NavLink>
-                </li>
-              )
-          )}
+          {routes.map(route => {
+            if (route.path === 'admin' && user.role !== 'admin') return
+            return (
+              <li key={route.title} className="link">
+                <NavLink end to={route.path}>
+                  {route.title}
+                </NavLink>
+              </li>
+            )
+          })}
+          <li className="logout">
+            <button className="clean-btn link" onClick={onLogout}>
+              Logout
+            </button>
+          </li>
         </ul>
       )}
     </header>
