@@ -1,6 +1,41 @@
 .login-signup-page {
     padding-bottom: 132px;
-    padding-top: 92px;
+    padding-top: 40px;
+    flex-direction: column;
+
+    @include for-medium-layout {
+        flex-direction: row;
+        justify-content: center;
+
+        div.welcome {
+            .logo-container {
+                margin: 0;
+            }
+        }
+    }
+
+    .welcome {
+        width: 400px;
+
+        .logo-container {
+            height: 111px;
+            padding: 0 0 20px 0;
+            width: 114px;
+            margin: auto;
+        }
+
+        h2 {
+            font-size: 24px;
+            line-height: 28px;
+            font-family: SFProDisplay-Regular, Helvetica, Arial, sans-serif;
+            font-weight: normal;
+
+            @include for-small-layout {
+                font-size: 28px;
+                line-height: 32px;
+            }
+        }
+    }
 
     form.login-signup {
         height: fit-content;
@@ -41,7 +76,6 @@
                     }
 
                     .add-avatar-txt-container {
-                        display: none;
                         position: absolute;
                         transform: translate(-50%, -50%);
                         top: 50%;
@@ -50,6 +84,10 @@
                         border-radius: 50%;
                         height: 100%;
                         width: 100%;
+
+                        @include for-small-layout {
+                            display: none;
+                        }
 
                         .add-avatar-txt {
                             color: #fff;

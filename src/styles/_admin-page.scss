@@ -28,6 +28,7 @@
 
         .avatar {
             width: calc(60px + 2rem);
+            aspect-ratio: 1;
 
             img {
                 border-radius: 50%;
