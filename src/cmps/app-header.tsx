@@ -36,7 +36,7 @@ export function AppHeader() {
             )
           })}
           <li className="logout">
-            <button className="clean-btn link" onClick={onLogout}>
+            <button className="clean-btn btn-logout" onClick={onLogout}>
               Logout
             </button>
           </li>

@@ -1,7 +1,12 @@
 // import { storageService } from './async-storage.service'
 import { socketService } from './socket.service'
 import { httpService } from './http.service'
-import { User, UserCredLogin, UserCredSignup } from 'models/user.model'
+import {
+  User,
+  UserCredEdit,
+  UserCredLogin,
+  UserCredSignup,
+} from 'models/user.model'
 
 const STORAGE_KEY_LOGGEDIN_USER = 'loggedinUser'
 
@@ -15,6 +20,8 @@ export const userService = {
   getById,
   remove,
   update,
+  getEmptyUser,
+  add,
 }
 
 function getUsers() {
@@ -31,6 +38,12 @@ async function getById(userId: string) {
 function remove(userId: string) {
   // return storageService.remove('user', userId)
   return httpService.delete(`user/${userId}`)
+}
+
+async function add(userCred: UserCredSignup) {
+  const user: User = await httpService.post('user', userCred)
+  // socketService.emit('set-user-socket', user._id);
+  return user
 }
 
 async function update(user: User) {
@@ -73,4 +86,13 @@ function getLoggedinUser() {
   return JSON.parse(
     sessionStorage.getItem(STORAGE_KEY_LOGGEDIN_USER) || 'null'
   ) as User | null
+}
+
+function getEmptyUser(): UserCredEdit {
+  return {
+    avatar: '',
+    fullname: '',
+    username: '',
+    password: '',
+  }
 }

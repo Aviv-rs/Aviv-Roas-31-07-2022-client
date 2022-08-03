@@ -1,6 +1,5 @@
 import { EditUserModal } from 'cmps/edit-user-modal'
-import { UserList } from 'cmps/user-list'
-import { User, UserCredUpdate } from 'models/user.model'
+import { User, UserCredEdit, UserCredSignup } from 'models/user.model'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { userService } from 'services/user.service'
@@ -8,8 +7,9 @@ import { userService } from 'services/user.service'
 export const AdminPage = () => {
   const [users, setUsers] = useState([] as User[])
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const [userToUpdate, setUserToUpdate] = useState({} as User)
+  const [userToUpdate, setUserToUpdate] = useState({} as UserCredEdit)
   const navigate = useNavigate()
+
   useEffect(() => {
     const loggedinUser = userService.getLoggedinUser()
     if (loggedinUser?.role !== 'admin') return navigate('/chat')
@@ -24,12 +24,29 @@ export const AdminPage = () => {
 
   const onDeleteUser = async (userId: string) => {
     await userService.remove(userId)
-    loadUsers()
+    setUsers((prevUsers: User[]) =>
+      prevUsers.filter((user: User) => user._id !== userId)
+    )
   }
 
-  const onUpdateUser = async (cred: UserCredUpdate) => {
-    await userService.update({ ...userToUpdate, ...cred })
-    loadUsers()
+  const onUpdateUser = async (cred: UserCredEdit) => {
+    const savedUser = await userService.update({
+      _id: userToUpdate._id,
+      ...cred,
+    } as User)
+
+    setUsers((prevUsers: User[]) => {
+      const newUsers = prevUsers.map((user: User) => {
+        if (user._id === savedUser._id) return { ...savedUser }
+        return user
+      })
+      return newUsers
+    })
+  }
+
+  const onAddUser = async (cred: UserCredEdit) => {
+    const savedUser = await userService.add(cred as UserCredSignup)
+    setUsers((prevUsers: User[]) => [...prevUsers, savedUser])
   }
 
   const closeModal = () => {
@@ -39,6 +56,17 @@ export const AdminPage = () => {
   return (
     <section className="admin-page full-screen flex column align-center">
       <h1>Admin dashboard</h1>
+      <div className="container">
+        <button
+          className="btn-add"
+          onClick={() => {
+            setUserToUpdate(userService.getEmptyUser())
+            setIsModalOpen(true)
+          }}
+        >
+          Add user
+        </button>
+      </div>
       <table className="users-table">
         <thead>
           <tr>
@@ -51,6 +79,8 @@ export const AdminPage = () => {
         <tbody>
           {users.map((user: User) => {
             if (user.role === 'admin') return
+            const { avatar, fullname, username } = user
+            const updateFields = { avatar, fullname, username }
             return (
               <tr key={user._id} className="user-info-row">
                 <td className="column1">
@@ -64,7 +94,7 @@ export const AdminPage = () => {
                   <div className="actions flex">
                     <button
                       onClick={() => {
-                        setUserToUpdate(user)
+                        setUserToUpdate(updateFields)
                         setIsModalOpen(true)
                       }}
                       className="btn-edit"
@@ -87,7 +117,8 @@ export const AdminPage = () => {
       {isModalOpen && (
         <EditUserModal
           user={userToUpdate}
-          submitFn={onUpdateUser}
+          updateUserFn={onUpdateUser}
+          addUserFn={onAddUser}
           closeModalFn={closeModal}
         />
       )}

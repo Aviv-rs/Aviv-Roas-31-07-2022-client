@@ -1,5 +1,22 @@
 .admin-page {
 
+    h1 {
+        text-align: center;
+        font-size: 1.8rem;
+    }
+
+    .container {
+        width: 80vw;
+        margin-block: 1rem;
+
+        .btn-add {
+            @include btn($padding: 1rem, $clr: #fff);
+            font-weight: bold;
+            font-size: 1.1rem;
+            padding: 1rem 2rem;
+        }
+    }
+
     .users-table {
         width: 80vw;
         text-align: left;

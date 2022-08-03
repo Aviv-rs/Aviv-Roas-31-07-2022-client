@@ -1,5 +1,5 @@
 import { useForm } from 'hooks/useForm'
-import { User, UserCredUpdate } from 'models/user.model'
+import { UserCredEdit } from 'models/user.model'
 import React, { useEffect, useRef } from 'react'
 import { uploadAndGetImgUrl } from 'services/cloudinary.service'
 import { utilService } from 'services/utils'
@@ -7,15 +7,16 @@ import defaultAvatar from '../assets/imgs/default-avatar.png'
 
 export const EditUserModal = ({
   user,
-  submitFn,
+  updateUserFn,
+  addUserFn,
   closeModalFn,
 }: {
-  user: User
-  submitFn: (cred: UserCredUpdate) => void
+  user: UserCredEdit
+  updateUserFn: (cred: UserCredEdit) => void
+  addUserFn: (cred: UserCredEdit) => void
   closeModalFn: () => void
 }) => {
-  const { avatar, fullname, username } = user
-  const [register, credentials] = useForm({ avatar, fullname, username })
+  const [register, credentials] = useForm({ ...user })
   const modalRef = useRef<HTMLFormElement>(null)
 
   useEffect(() => {
@@ -35,8 +36,12 @@ export const EditUserModal = ({
 
   const handleSubmit = async (ev: React.FormEvent<HTMLFormElement>) => {
     ev.preventDefault()
-    const avatarUrl = await uploadAndGetImgUrl(credentials.avatar)
-    submitFn({ ...credentials, avatar: avatarUrl })
+    const avatarUrl = credentials.avatar
+      ? await uploadAndGetImgUrl(credentials.avatar)
+      : defaultAvatar
+    user._id
+      ? updateUserFn({ ...credentials, avatar: avatarUrl })
+      : addUserFn({ ...credentials, avatar: avatarUrl })
     closeModalFn()
   }
 
@@ -70,7 +75,11 @@ export const EditUserModal = ({
                       />
                       <div className="add-avatar-txt-container flex align-center justify-center">
                         {' '}
-                        <div className="add-avatar-txt">Update avatar</div>{' '}
+                        <div className="add-avatar-txt">
+                          {credentials.password !== undefined
+                            ? 'Add avatar'
+                            : 'Update avatar'}
+                        </div>{' '}
                       </div>
                     </div>
                   </label>
@@ -88,7 +97,7 @@ export const EditUserModal = ({
           )
         })}
         <button className="btn-submit" type="submit">
-          Update
+          {credentials.password !== undefined ? 'Add' : 'Update'}
         </button>
       </form>
     </div>

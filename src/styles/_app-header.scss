@@ -14,14 +14,24 @@
     .links {
         gap: 10px;
 
+        &>* {
+            font-size: 1.1rem;
+
+        }
+
         .link {
             font-weight: bold;
-            font-size: 1.1rem;
 
             .active {
                 color: $clr-link-active;
                 border-bottom: 2px solid $clr-link-active;
             }
+        }
+
+        .btn-logout {
+            color: rgba(0, 0, 0, 0.9);
+            font-weight: bold;
+
         }
     }
 }

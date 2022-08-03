@@ -4,21 +4,25 @@ export interface User {
   username: string
   avatar: string
   role: string
+  friends: User[]
 }
 
 export interface UserCredSignup {
   fullname: string
   username: string
   password: string
-  avatar?: string
+  avatar: string
 }
 
 export interface UserCredLogin {
   username: string
   password: string
 }
-export interface UserCredUpdate {
+
+export interface UserCredEdit {
+  _id?: string
   avatar: string
   username: string
   fullname: string
+  password?: string
 }
