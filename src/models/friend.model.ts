@@ -7,7 +7,6 @@ export interface Friend {
 export interface FriendRequest {
   fromUser: Friend
   toUser: Friend
-  toUserId: string
   sentAt: Date
   status: string
 }

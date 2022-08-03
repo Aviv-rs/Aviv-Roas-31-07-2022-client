@@ -1,4 +1,4 @@
-import { Friend } from './friend.model'
+import { Friend, FriendRequest } from './friend.model'
 
 export interface User {
   _id: string
@@ -7,6 +7,7 @@ export interface User {
   avatar: string
   role: string
   friends: Friend[]
+  friendRequests: FriendRequest[]
 }
 
 export interface UserCredSignup {

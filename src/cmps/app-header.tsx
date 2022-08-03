@@ -35,6 +35,7 @@ export function AppHeader() {
               </li>
             )
           })}
+          <li>Logged in as {user.fullname}</li>
           <li className="logout">
             <button className="clean-btn btn-logout" onClick={onLogout}>
               Logout

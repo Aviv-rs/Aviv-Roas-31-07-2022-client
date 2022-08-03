@@ -14,7 +14,14 @@ export const UserList = ({
   return (
     <section className="user-list flex align-center">
       {users.map((user: User) => {
-        if (user._id === loggedinUserId) return
+        const isFriendRequest =
+          user.friendRequests.findIndex(
+            friendReq => friendReq.toUser._id === loggedinUserId
+          ) > -1 ||
+          user.friendRequests.findIndex(
+            friendReq => friendReq.fromUser._id === loggedinUserId
+          ) > -1
+        if (user._id === loggedinUserId || isFriendRequest) return
         return (
           <UserPreview
             onSendFriendRequest={onSendFriendRequest}
