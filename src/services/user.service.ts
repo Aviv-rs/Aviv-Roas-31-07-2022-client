@@ -48,7 +48,7 @@ async function add(userCred: UserCredSignup) {
 
 async function update(user: User) {
   // await storageService.put('user', user)
-  user = await httpService.put(`user/${user._id}`, user)
+  user = await httpService.put('user', user)
   // Handle case in which admin updates other user's details
   if (getLoggedinUser()?._id === user._id) saveLocalUser(user)
   return user

@@ -1,6 +1,16 @@
+import { FriendRequest } from 'models/friend.model'
 import { User } from 'models/user.model'
+import { userService } from 'services/user.service'
 
-export const UserPreview = ({ user }: { user: User }) => {
+export const UserPreview = ({
+  user,
+  onSendFriendRequest,
+}: {
+  user: User
+  onSendFriendRequest: (friendRequest: FriendRequest) => void
+}) => {
+  const loggedinUser = userService.getLoggedinUser()
+
   return (
     <article className="user-preview flex column">
       <div className="avatar-container">
@@ -11,7 +21,25 @@ export const UserPreview = ({ user }: { user: User }) => {
           <h1 className="fullname">{user.fullname}</h1>
         </div>
         <div className="add-friend-container flex justify-center">
-          <button className="btn-add-friend">Add Friend</button>
+          <button
+            onClick={() => {
+              const { _id, avatar, fullname } = user
+              const sentAt = new Date()
+              onSendFriendRequest({
+                fromUser: {
+                  _id: loggedinUser?._id,
+                  avatar: loggedinUser?.avatar,
+                  fullname: loggedinUser?.fullname,
+                },
+                toUser: { _id, avatar, fullname },
+                sentAt,
+                status: 'waiting',
+              } as FriendRequest)
+            }}
+            className="btn-add-friend"
+          >
+            Add Friend
+          </button>
         </div>
         <div className="remove-friend-container flex justify-center">
           <button className="btn-remove-friend">Remove</button>

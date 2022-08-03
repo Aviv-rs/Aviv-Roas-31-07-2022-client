@@ -1,10 +1,12 @@
+import { Friend } from './friend.model'
+
 export interface User {
   _id: string
   fullname: string
   username: string
   avatar: string
   role: string
-  friends: User[]
+  friends: Friend[]
 }
 
 export interface UserCredSignup {
