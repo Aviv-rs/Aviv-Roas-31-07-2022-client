@@ -35,11 +35,16 @@ export function AppHeader() {
               </li>
             )
           })}
-          {/* <li>Logged in as {user.fullname}</li> */}
           <li className="logout">
             <button className="clean-btn btn-logout" onClick={onLogout}>
               Logout
             </button>
+          </li>
+          <li className="flex align-center column">
+            <div className="avatar-container">
+              <img src={user.avatar} alt="" />
+            </div>
+            <span className="name-container">{user.fullname}</span>
           </li>
         </ul>
       )}

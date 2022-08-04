@@ -13,7 +13,7 @@ export const ChatApp = () => {
   return (
     <section className="chat-app">
       <AppHeader />
-      <main className="layout-padding full-screen">
+      <main className=" full-screen">
         <Routes>
           {routes.map(route => (
             <Route key={route.path} path={route.path} element={route.element} />

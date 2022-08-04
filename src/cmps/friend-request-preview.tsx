@@ -26,9 +26,9 @@ export const FriendRequestPreview = ({
             Confirm
           </button>
         </div>
-        <div className="remove-friend-container flex justify-center">
+        {/* <div className="remove-friend-container flex justify-center">
           <button className="btn-remove-friend">Delete</button>
-        </div>
+        </div> */}
       </div>
     </article>
   )

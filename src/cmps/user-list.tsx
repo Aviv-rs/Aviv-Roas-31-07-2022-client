@@ -12,7 +12,7 @@ export const UserList = ({
   onSendFriendRequest: (friendRequest: FriendRequest) => void
 }) => {
   return (
-    <section className="user-list flex align-center">
+    <section className="user-list grid align-center">
       {users.map((user: User) => {
         const isFriendRequest =
           user.friendRequests.findIndex(

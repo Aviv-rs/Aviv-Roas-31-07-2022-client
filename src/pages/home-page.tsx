@@ -69,67 +69,51 @@ export function HomePage() {
     const user = await userService.refreshLoggedinUser()
     if (user) setLoggedInUser(user)
 
-    // setLoggedInUser((prevLoggedinUser: User) => {
-    //   const newUser = { ...prevLoggedinUser }
-    //   newUser.friendRequests.forEach(currFriendRequest => {
-    //     if (currFriendRequest.fromUser._id === friendRequest.fromUser._id)
-    //       currFriendRequest.status = 'confirmed'
-    //     return currFriendRequest
-    //   })
-    //   return newUser
-    // })
-
     socketService.emit(SOCKET_EMIT_USER_CONFIRMED_FRIEND_REQUEST, friendRequest)
   }
 
   return (
-    <section className="home-page">
-      {loggedinUser?.friendRequests.some(
-        friendReq =>
-          friendReq.status === 'waiting' &&
-          friendReq.fromUser._id !== loggedinUser._id
-      ) && (
-        <>
-          <div className="friend-requests-title">
-            <h1>Friend Requests</h1>
-          </div>
-          {loggedinUser?.friendRequests.map(friendReq => {
-            if (
-              friendReq.status === 'confirmed' ||
-              friendReq.fromUser._id === loggedinUser._id
-            )
-              return
-            return (
-              <FriendRequestPreview
-                key={friendReq.fromUser._id}
-                friendRequest={friendReq}
-                onConfirmFriendRequest={onConfirmFriendRequest}
-              />
-            )
-          })}
-          <hr />
-        </>
-      )}
-
-      <div className="friend-suggestions-title">
-        <h1>Friend suggestions</h1>
-      </div>
-      <UserList
-        users={users}
-        loggedinUserId={loggedinUser?._id}
-        onSendFriendRequest={onSendFriendRequest}
-      />
-
+    <section className="home-page full-screen flex">
       <FriendsNavbar friends={loggedinUser?.friends as Friend[]} />
+
+      <main className="main-content layout-padding">
+        {loggedinUser?.friendRequests.some(
+          friendReq =>
+            friendReq.status === 'waiting' &&
+            friendReq.fromUser._id !== loggedinUser._id
+        ) && (
+          <>
+            <div className="friend-requests-title">
+              <h1>Friend Requests</h1>
+            </div>
+            <div className="friend-requests-list">
+              {loggedinUser?.friendRequests.map(friendReq => {
+                if (
+                  friendReq.status === 'confirmed' ||
+                  friendReq.fromUser._id === loggedinUser._id
+                )
+                  return
+                return (
+                  <FriendRequestPreview
+                    key={friendReq.fromUser._id}
+                    friendRequest={friendReq}
+                    onConfirmFriendRequest={onConfirmFriendRequest}
+                  />
+                )
+              })}
+            </div>
+            <hr />
+          </>
+        )}
+        <div className="friend-suggestions-title">
+          <h1>Friend suggestions</h1>
+        </div>
+        <UserList
+          users={users}
+          loggedinUserId={loggedinUser?._id}
+          onSendFriendRequest={onSendFriendRequest}
+        />
+      </main>
     </section>
   )
 }
-
-// [
-//   {
-//     _id: '1',
-//     fullname: 'JD',
-//     avatar:
-//       'http://res.cloudinary.com/da563p1yb/image/upload/v1659418275/n158qh8yn9szodpwegmi.jpg',
-//   },
-// ]

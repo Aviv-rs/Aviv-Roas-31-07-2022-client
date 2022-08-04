@@ -1,0 +1,45 @@
+.friends-navbar {
+    position: relative;
+    width: 360px;
+    background-color: #fff;
+    min-height: inherit;
+    z-index: 1;
+
+    .nav-content {
+        min-height: inherit;
+        width: inherit;
+        position: fixed;
+        top: 80px;
+    }
+
+    .friend-count {
+        padding: 8px;
+        font-size: 1.2rem;
+        font-family: "Segoe UI Historic";
+        font-weight: bold;
+    }
+
+    .friend-list {
+        .friend {
+            padding: 8px;
+            min-height: 44px;
+
+            .avatar-container {
+                width: 60px;
+                height: 60px;
+                margin-inline-end: 12px;
+
+                img {
+                    border-radius: 100%;
+                }
+            }
+
+            .name-container {
+                font-size: 1.1rem;
+                font-weight: bold;
+            }
+        }
+    }
+
+
+}

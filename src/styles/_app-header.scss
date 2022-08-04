@@ -5,6 +5,10 @@
     background: $primary-gradient;
     padding: 10px 2rem;
     justify-content: space-between;
+    position: fixed;
+    left: 0;
+    right: 0;
+    z-index: 3;
 
     .logo-container {
         height: 60px;
@@ -16,6 +20,22 @@
 
         &>* {
             font-size: 1.1rem;
+
+        }
+
+        .avatar-container {
+            width: 40px;
+            height: 40px;
+
+            img {
+                border-radius: 100%;
+            }
+        }
+
+        .name-container {
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: default;
 
         }
 
