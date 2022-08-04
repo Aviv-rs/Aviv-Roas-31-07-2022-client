@@ -15,6 +15,7 @@ export const userService = {
   logout,
   signup,
   getLoggedinUser,
+  refreshLoggedinUser,
   saveLocalUser,
   getUsers,
   getById,
@@ -35,9 +36,18 @@ async function getById(userId: string) {
   // gWatchedUser = user;
   return user
 }
+
 function remove(userId: string) {
   // return storageService.remove('user', userId)
   return httpService.delete(`user/${userId}`)
+}
+
+async function refreshLoggedinUser() {
+  const loggedinUser = getLoggedinUser()
+  if (!loggedinUser || !loggedinUser._id) return
+  const newLoggedinUser = await getById(loggedinUser._id)
+  saveLocalUser(newLoggedinUser)
+  return newLoggedinUser as User
 }
 
 async function add(userCred: UserCredSignup) {
@@ -68,16 +78,17 @@ async function login(userCred: UserCredLogin) {
 }
 async function signup(userCred: UserCredSignup) {
   const user = await httpService.post('auth/signup', userCred)
-  // socketService.emit('set-user-socket', user._id);
+  socketService.emit('set-user-socket', user._id)
   return saveLocalUser(user)
 }
 async function logout() {
   sessionStorage.removeItem(STORAGE_KEY_LOGGEDIN_USER)
-  // socketService.emit('unset-user-socket');
+  socketService.emit('unset-user-socket', '')
   return await httpService.post('auth/logout')
 }
 
 function saveLocalUser(user: User) {
+  if (!user.friendRequests) user.friendRequests = []
   sessionStorage.setItem(STORAGE_KEY_LOGGEDIN_USER, JSON.stringify(user))
   return user
 }

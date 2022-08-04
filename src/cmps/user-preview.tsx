@@ -1,5 +1,9 @@
 import { FriendRequest } from 'models/friend.model'
 import { User } from 'models/user.model'
+import {
+  socketService,
+  SOCKET_EMIT_USER_SENT_FRIEND_REQUEST,
+} from 'services/socket.service'
 import { userService } from 'services/user.service'
 
 export const UserPreview = ({

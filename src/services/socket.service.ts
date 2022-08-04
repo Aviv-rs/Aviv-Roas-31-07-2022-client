@@ -3,8 +3,15 @@ import { userService } from './user.service'
 
 const SOCKET_EMIT_LOGIN = 'set-user-socket'
 const SOCKET_EMIT_LOGOUT = 'unset-user-socket'
+export const SOCKET_EMIT_USER_SENT_FRIEND_REQUEST = 'friend-request-sent'
+export const SOCKET_EMIT_USER_CONFIRMED_FRIEND_REQUEST =
+  'friend-request-confirmed'
 
-const baseUrl = process.env.NODE_ENV === 'production' ? '' : 'localhost:3030'
+export const SOCKET_EVENT_RECIEVED_FRIEND_REQUEST = 'user-recieved-new-request'
+export const SOCKET_EVENT_MY_FRIEND_REQUEST_CONFIRMED =
+  'user-confirmed-my-request'
+
+const baseUrl = process.env.NODE_ENV === 'production' ? '' : '//localhost:3030'
 export const socketService = createSocketService()
 
 // export const socketService = createDummySocketService()
@@ -35,7 +42,7 @@ function createSocketService() {
       else socket.off(eventName, cb)
     },
     emit(eventName: string, data: any) {
-      socket.on(eventName, data)
+      socket.emit(eventName, data)
     },
     login(userId: string) {
       socket.emit(SOCKET_EMIT_LOGIN, userId)
